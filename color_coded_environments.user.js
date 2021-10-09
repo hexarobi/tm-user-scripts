@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TheZebra Color-Coded Environments
 // @namespace    http://thezebra.com/
-// @version      1.10
+// @version      1.11
 // @author       Tyler Chamberlain <tchamberlain@thezebra.com>
 // @description  Add color-coded favicons and header divs on TheZebra's development environments
 // @updateURL    https://github.com/hexarobi/tm-user-scripts/raw/main/color_coded_environments.user.js
@@ -10,7 +10,7 @@
 // @match        http://localhost:9009/*
 // @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA9dJREFUWEftVmtIU2EYfs48a27Oy7xmSs4y1LxDIUVFPywqCsqKTFgX0xYIElH0wx9ZUPSjon5ELrqYXU2qH0oQURHZDSozWbm8ZF7W0C2ntrm5y4mjZm7nnM8tgv707cdh5zzv+z7v837f+37U4mMvGfzDRf0n4K1ArlIOhTzQsyhuJ+B2jb2jKGrs+cPmwPMvVrhBISVagjmRXjZeZf2gt6LH7OAUm1OCutIMhIcECe6KbqMFV1704FHLAEZdgExM4ZY6CxHBwgQYhoG6qglag+3PCYw6Xbj09CtuvumD0/3bj3ppLLYtSSBu44fNBlTUd/JiOArUl2ZCESLzAOsHrCi/o8PnfrvH+5nBNG6osyER04IE7A4XCjWNMAw7/4zAp95B7K/VwTwyJe0JV4fXJSIvPYaYfXXDV2iefRPEEBX42DOIvTU6WEa5wTNipTi3PXNyU/JFMA3bUKBpgtUh3GoECfSaLCip1mLQxg1OgYFGlYq0+DBi9sfrdahrHiBieAnIpDNQfLkZHSbPmv/ytDI1DIfWpxAdtxmGsLNKCzczfmyFFi+BKy/1qH1n5LWR0MDNkizEhEmJjsuufcDbbisRM9ZXvBvRyXwlDtztBFf4cV87FsWgZHki0XGDrh8H77ZPG5yXQFywCL3D/OEjgwJwS50DKSuDwHK63FCdb0QXT9fjM/FrGJWvTsCa7FhiZrdfd+PM416fsudVQMgyOToQF4qyIJqYBXy4IesotlQ2Ysju+4T3UQEGZ7cmI1sZTszszIM23BbYvD6fAj7g8nkhOLppPjF4l9EC1cVmjzkx1UBKAyM83XhaBcQi4HpJBuLChSckG+hgjRYNHcO8JNnNuzZdgarX3KM9LYHChVEozZtLzP5thwllNa2CmCPrlNCbbah8ZuBgiATCpCLU7MmBPFAs6NztZlB08T1ajfxdMy85FIfzU3G1odN/AvtXxGPDgnhi9nXv9Dj+oIsXMydiBjTbMyGT0P4TYI2rirMRIBIJErDaHSiofA+Tdfy6NnXNDBbjnGo+okPHW7bfCpzanITcpEhi9ponHah+1cfBxIXSOL01DbMUv+eFXwQWJQbhREEGMbjBPILC802weyWfFSfD0fxkKOQSD3ufCQRQQPWudCij5EQCFfc+4WHL4CSGFgGq3BjsWJoAOoBbNp8JbMyJxL5VScTg2m4z1NdawDZc9nKybF4odi+bDWW0MGmfCagWRkzKx16nPdbE3/va72g32hERCKxJVyBWIQPLhmF/DEDRYoDyVOHJxz686bL41weIMvylj9N2wr8UR9DNfwI/AWp5ofBEjHKVAAAAAElFTkSuQmCC
 // @grant        none
-// @run-at       document-body
+// @run-at       document-start
 // ==/UserScript==
 
 
@@ -59,6 +59,12 @@ var env_color_map = {
 var header_div_classes = ['header', 'grid-header', 'navbar', 'nav-top', 'header-buttons'];
 
 window.addEventListener('load', function() {
+    apply_color_coded_environments();
+    // Apply again after one second to make sure its applied
+    setTimeout(apply_color_coded_environments, 1000);
+}, false);
+
+function apply_color_coded_environments() {
     var environment = get_environment();
     var env_color_key = get(env_color_map, environment, null)
     if (env_color_key) {
@@ -67,7 +73,7 @@ window.addEventListener('load', function() {
             override_with_env_color(env_color)
         }
     }
-}, false);
+}
 
 function override_with_env_color(env_color) {
     var favicon_data = get(env_color, "favicon", null)
