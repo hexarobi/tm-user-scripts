@@ -61,7 +61,8 @@ var env_color_map = {
 var header_div_classes = ['header', 'grid-header', 'navbar', 'nav-top', 'header-buttons'];
 
 var localhost_hosts = ['localhost', '127.0.0.1', '0.0.0.0'];
-var localhost_ports = ['9005', '9009'];
+var min_localhost_port = '9000'
+var max_localhost_port = '9999'
 
 window.addEventListener('load', function() {
     apply_color_coded_environments();
@@ -99,7 +100,11 @@ function get_environment() {
         host = port_parts[0]
         port = port_parts[1]
     }
-    if (localhost_hosts.includes(host) && localhost_ports.includes(port)) return "local"
+    if (localhost_hosts.includes(host)
+        && port >= min_localhost_port
+        && port <= max_localhost_port) {
+        return "local"
+    }
     var domain_parts = host.split('.')
     // Ignore hosts with no subdomain
     if (domain_parts.length <= 2) return null;
