@@ -19,11 +19,11 @@
 
 // This is the section where you can add your own groups.
 const GROUPS_TO_REVIEWERS = {
-    "Modify the group!": ["empty"],
-//     "Other_Group": ["test","other"],
+  "Modify the group!": ["empty"],
+  //     "Other_Group": ["test","other"],
 };
-const SELECTOR_FOR_EDIT_BUTTON = "[data-qa-selector=reviewers_edit_button]";
-const SELECTOR_FOR_DROPDOWN_MENU_PARENT = "[data-qa-selector=reviewers_block_container]";
+const SELECTOR_FOR_EDIT_BUTTON = '[data-testid=reviewers-edit-button]';
+const SELECTOR_FOR_DROPDOWN_MENU_PARENT = '[data-testid="reviewers-block-container"]';
 const ADD_GROUP_BUTTON_ID = "thezebra-add-group-button";
 const ADD_GROUP_DROPDOWN_ID = "thezebra-add-group-dropdown";
 const DROPDOWN_BUTTON_CLASS = "thezebra-dropdown-button";
