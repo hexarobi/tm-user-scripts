@@ -33,5 +33,4 @@ waitForKeyElements (MERGE_BUTTON, function() {
         }
         merge_button.title = buttonTitleText;
     }
-    document.getElementById(MR_TITLE);
 });
